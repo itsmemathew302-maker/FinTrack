@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Virtual Aquarium</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        background: #071923;
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+    }
+
+    .aquarium {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        background:
+            linear-gradient(to bottom,
+                #159bc2 0%,
+                #087fa8 35%,
+                #075b7d 70%,
+                #063d58 100%);
+    }
+
+    /* Light rays */
+    .light {
+        position: absolute;
+        top: -20%;
+        width: 180px;
+        height: 120%;
+        background: rgba(255,255,255,0.08);
+        transform: rotate(15deg);
+        filter: blur(8px);
+    }
+
+    .light:nth-child(1) { left: 10%; }
+    .light:nth-child(2) { left: 45%; transform: rotate(-12deg); }
+    .light:nth-child(3) { right: 10%; transform: rotate(10deg); }
+
+    /* Bubbles */
+    .bubble {
+        position: absolute;
+        bottom: -30px;
+        border: 2px solid rgba(255,255,255,.55);
+        border-radius: 50%;
+        animation: rise linear infinite;
+    }
+
+    @keyframes rise {
+        from {
+            transform: translateY(0);
+            opacity: .8;
+        }
+        to {
+            transform: translateY(-110vh);
+            opacity: 0;
+        }
+    }
+
+    /* Fish */
+    .fish {
+        position: absolute;
+        width: 110px;
+        height: 55px;
+        border-radius: 55% 45% 45% 55%;
+        cursor: pointer;
+        animation: swim 18s linear infinite;
+        z-index: 5;
+    }
+
+    .fish::before {
+        content: "";
+        position: absolute;
+        right: -30px;
+        top: 5px;
+        border-style: solid;
+        border-width: 22px 35px 22px 0;
+        border-color: transparent currentColor transparent transparent;
+        transform: rotate(180deg);
+    }
+
+    .fish::after {
+        content: "•";
+        position: absolute;
+        left: 18px;
+        top: 8px;
+        color: black;
+        font-size: 22px;
+    }
+
+    .fish1 {
+        top: 25%;
+        left: -150px;
+        background: #ff7043;
+        color: #ff7043;
+        animation-duration: 17s;
+    }
+
+    .fish2 {
+        top: 48%;
+        left: -180px;
+        width: 80px;
+        height: 42px;
+        background: #ffd54f;
+        color: #ffd54f;
+        animation-duration: 23s;
+        animation-delay: 3s;
+    }
+
+    .fish3 {
+        top: 65%;
+        left: -200px;
+        background: #ba68c8;
+        color: #ba68c8;
+        animation-duration: 20s;
+        animation-delay: 6s;
+    }
+
+    @keyframes swim {
+        0% {
+            transform: translateX(-180px);
+        }
+        45% {
+            transform: translateX(55vw);
+        }
+        50% {
+            transform: translateX(55vw) scaleX(-1);
+        }
+        95% {
+            transform: translateX(-180px) scaleX(-1);
+        }
+        100% {
+            transform: translateX(-180px);
+        }
+    }
+
+    /* Plants */
+    .plant {
+        position: absolute;
+        bottom: 45px;
+        width: 18px;
+        height: 170px;
+        background: #168a4a;
+        border-radius: 100% 0 100% 0;
+        transform-origin: bottom;
+        animation: sway 3s ease-in-out infinite alternate;
+    }
+
+    .plant::before,
+    .plant::after {
+        content: "";
+        position: absolute;
+        width: 18px;
+        height: 110px;
+        background: #1cab5d;
+        border-radius: 100% 0 100% 0;
+        transform-origin: bottom;
+    }
+
+    .plant::before {
+        transform: rotate(25deg);
+    }
+
+    .plant::after {
+        transform: rotate(-25deg);
+    }
+
+    .p1 { left: 10%; height: 150px; }
+    .p2 { left: 25%; height: 190px; animation-delay: .5s; }
+    .p3 { right: 20%; height: 170px; animation-delay: 1s; }
+    .p4 { right: 8%; height: 130px; animation-delay: 1.5s; }
+
+    @keyframes sway {
+        from { transform: rotate(-4deg); }
+        to { transform: rotate(5deg); }
+    }
+
+    /* Ground */
+    .sand {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 55px;
+        background: #d5b36a;
+        box-shadow: 0 -8px 20px rgba(0,0,0,.2);
+        z-index: 3;
+    }
+
+    /* Rocks */
+    .rock {
+        position: absolute;
+        bottom: 38px;
+        width: 70px;
+        height: 45px;
+        background: #52666b;
+        border-radius: 60% 50% 40% 30%;
+        z-index: 4;
+    }
+
+    .r1 { left: 35%; }
+    .r2 { right: 32%; width: 100px; height: 55px; }
+    .r3 { right: 5%; width: 60px; }
+
+    /* Top glass */
+    .surface {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 20px;
+        background: rgba(255,255,255,.15);
+        box-shadow: 0 0 20px rgba(255,255,255,.2);
+        z-index: 10;
+    }
+
+    /* Information panel */
+    .info {
+        position: absolute;
+        top: 30px;
+        left: 30px;
+        padding: 15px 20px;
+        color: white;
+        background: rgba(0,0,0,.25);
+        border: 1px solid rgba(255,255,255,.2);
+        border-radius: 15px;
+        backdrop-filter: blur(5px);
+        z-index: 20;
+    }
+
+    .info h1 {
+        margin: 0 0 5px;
+        font-size: 24px;
+    }
+
+    .info p {
+        margin: 0;
+        opacity: .8;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="aquarium">
+
+    <div class="surface"></div>
+
+    <div class="light"></div>
+    <div class="light"></div>
+    <div class="light"></div>
+
+    <div class="info">
+        <h1>🐠 My Aquarium</h1>
+        <p>Click a fish!</p>
+    </div>
+
+    <!-- Fish -->
+    <div class="fish fish1" onclick="fishClicked('Clownfish')"></div>
+    <div class="fish fish2" onclick="fishClicked('Golden Fish')"></div>
+    <div class="fish fish3" onclick="fishClicked('Purple Fish')"></div>
+
+    <!-- Plants -->
+    <div class="plant p1"></div>
+    <div class="plant p2"></div>
+    <div class="plant p3"></div>
+    <div class="plant p4"></div>
+
+    <!-- Rocks -->
+    <div class="rock r1"></div>
+    <div class="rock r2"></div>
+    <div class="rock r3"></div>
+
+    <div class="sand"></div>
+
+</div>
+
+<script>
+    // Create bubbles
+    for (let i = 0; i < 35; i++) {
+        const bubble = document.createElement("div");
+        bubble.className = "bubble";
+
+        const size = Math.random() * 15 + 5;
+
+        bubble.style.width = size + "px";
+        bubble.style.height = size + "px";
+        bubble.style.left = Math.random() * 100 + "%";
+        bubble.style.animationDuration =
+            (Math.random() * 8 + 5) + "s";
+        bubble.style.animationDelay =
+            Math.random() * 8 + "s";
+
+        document.querySelector(".aquarium").appendChild(bubble);
+    }
+
+    function fishClicked(name) {
+        alert("🐟 You clicked the " + name + "!");
+    }
+</script>
+
+</body>
+</html>

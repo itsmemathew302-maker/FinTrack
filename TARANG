@@ -1,0 +1,1911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050b1c">
+  <meta name="description" content="TARANG — Alumni Meet at New Prince Shri Bhavani College of Engineering and Technology">
+  <title>TARANG | Alumni Meet 2026</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy: #050b1c;
+      --navy-2: #09142d;
+      --blue: #0c2d68;
+      --blue-bright: #1c67d8;
+      --gold: #d4af37;
+      --gold-light: #ffe9a3;
+      --gold-dark: #8e6b16;
+      --white: #f8fbff;
+      --muted: #9ba9c5;
+      --glass: rgba(255,255,255,0.055);
+      --border: rgba(212,175,55,0.25);
+      --shadow: 0 25px 80px rgba(0,0,0,0.4);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(20,75,160,0.22), transparent 35%),
+        var(--navy);
+      color: var(--white);
+      font-family: "Inter", sans-serif;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      pointer-events: none;
+      background:
+        radial-gradient(
+          500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+          rgba(212,175,55,0.085),
+          transparent 55%
+        );
+    }
+
+    ::selection {
+      color: var(--navy);
+      background: var(--gold-light);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    /* =========================================
+       LOADER
+    ========================================= */
+
+    .loader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: grid;
+      place-items: center;
+      background: var(--navy);
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    .loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader-content {
+      text-align: center;
+    }
+
+    .loader-logo {
+      font-family: "Cinzel", serif;
+      font-size: clamp(3rem, 10vw, 7rem);
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      color: var(--gold);
+      animation: logoPulse 1.5s ease-in-out infinite alternate;
+    }
+
+    .loader-line {
+      width: 180px;
+      height: 2px;
+      margin: 20px auto;
+      overflow: hidden;
+      background: rgba(212,175,55,0.15);
+    }
+
+    .loader-line::after {
+      content: "";
+      display: block;
+      width: 50%;
+      height: 100%;
+      background: var(--gold);
+      animation: loading 1.2s ease-in-out infinite;
+    }
+
+    @keyframes loading {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(300%); }
+    }
+
+    @keyframes logoPulse {
+      from { opacity: 0.55; }
+      to { opacity: 1; text-shadow: 0 0 30px rgba(212,175,55,0.4); }
+    }
+
+    /* =========================================
+       PARTICLES
+    ========================================= */
+
+    #particles {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: 0.35;
+      animation: floatParticle linear infinite;
+    }
+
+    @keyframes floatParticle {
+      from {
+        transform: translateY(110vh) scale(0);
+        opacity: 0;
+      }
+
+      15% {
+        opacity: 0.45;
+      }
+
+      85% {
+        opacity: 0.25;
+      }
+
+      to {
+        transform: translateY(-10vh) scale(1);
+        opacity: 0;
+      }
+    }
+
+    /* =========================================
+       NAVIGATION
+    ========================================= */
+
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 500;
+      padding: 22px 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: 0.4s ease;
+    }
+
+    .nav.scrolled {
+      padding-top: 14px;
+      padding-bottom: 14px;
+      background: rgba(5,11,28,0.78);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(212,175,55,0.12);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: "Cinzel", serif;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--gold-light);
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--gold);
+      transform: rotate(45deg);
+    }
+
+    .brand-mark span {
+      transform: rotate(-45deg);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 35px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .nav-links a {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -7px;
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold-light);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .menu-btn {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--border);
+      background: var(--glass);
+      color: white;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    /* =========================================
+       HERO
+    ========================================= */
+
+    .hero {
+      min-height: 100vh;
+      min-height: 100svh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      padding: 100px 5% 60px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 70vw;
+      height: 70vw;
+      max-width: 900px;
+      max-height: 900px;
+      border-radius: 50%;
+      border: 1px solid rgba(212,175,55,0.08);
+      box-shadow:
+        0 0 100px rgba(22,91,190,0.08),
+        inset 0 0 100px rgba(22,91,190,0.06);
+      animation: slowRotate 25s linear infinite;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 45vw;
+      height: 45vw;
+      max-width: 600px;
+      max-height: 600px;
+      border-radius: 50%;
+      border: 1px dashed rgba(212,175,55,0.12);
+      animation: slowRotateReverse 18s linear infinite;
+    }
+
+    @keyframes slowRotate {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes slowRotateReverse {
+      to { transform: rotate(-360deg); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1000px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 25px;
+      color: var(--gold-light);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before,
+    .eyebrow::after {
+      content: "";
+      width: 35px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .hero-title {
+      font-family: "Cinzel", serif;
+      font-size: clamp(5rem, 16vw, 12rem);
+      line-height: 0.8;
+      letter-spacing: 0.06em;
+      font-weight: 800;
+      background: linear-gradient(
+        135deg,
+        #fff5c7 0%,
+        var(--gold) 30%,
+        #fff1a6 50%,
+        #a97d1b 72%,
+        #fff1a6 100%
+      );
+      background-size: 250% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: goldShimmer 6s linear infinite;
+      text-shadow: 0 15px 60px rgba(212,175,55,0.1);
+    }
+
+    @keyframes goldShimmer {
+      to { background-position: 250% center; }
+    }
+
+    .hero-subtitle {
+      margin: 35px auto 0;
+      max-width: 750px;
+      font-size: clamp(0.95rem, 2vw, 1.2rem);
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    .hero-subtitle strong {
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    .hero-details {
+      margin: 35px auto 0;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .detail-pill {
+      padding: 11px 18px;
+      border: 1px solid rgba(212,175,55,0.18);
+      background: rgba(255,255,255,0.035);
+      border-radius: 100px;
+      color: #d8e1f3;
+      font-size: 0.8rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .detail-pill span {
+      color: var(--gold-light);
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 35px;
+    }
+
+    .btn {
+      position: relative;
+      min-width: 165px;
+      padding: 15px 25px;
+      border-radius: 100px;
+      border: 1px solid var(--gold);
+      cursor: pointer;
+      overflow: hidden;
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 40px rgba(212,175,55,0.2);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #f0d26a, #b98b20);
+      color: #081027;
+      font-weight: 800;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.04);
+      color: var(--gold-light);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn .shine {
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,0.35),
+        transparent
+      );
+      transform: skewX(-20deg);
+      transition: 0.7s ease;
+    }
+
+    .btn:hover .shine {
+      left: 150%;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.45);
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .scroll-indicator::after {
+      content: "";
+      display: block;
+      width: 1px;
+      height: 40px;
+      margin: 10px auto 0;
+      background: linear-gradient(var(--gold), transparent);
+      animation: scrollLine 1.5s ease-in-out infinite;
+    }
+
+    @keyframes scrollLine {
+      50% { transform: translateY(10px); }
+    }
+
+    /* =========================================
+       SECTIONS
+    ========================================= */
+
+    section {
+      position: relative;
+      padding: 120px 6%;
+    }
+
+    .section-heading {
+      max-width: 800px;
+      margin: 0 auto 65px;
+      text-align: center;
+    }
+
+    .section-kicker {
+      color: var(--gold);
+      font-size: 0.7rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-family: "Cinzel", serif;
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      line-height: 1.1;
+      color: #fff8db;
+    }
+
+    .section-description {
+      margin-top: 18px;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+
+    /* =========================================
+       COUNTDOWN
+    ========================================= */
+
+    .countdown-section {
+      background:
+        radial-gradient(circle at center, rgba(12,45,104,0.45), transparent 65%);
+    }
+
+    .countdown {
+      max-width: 950px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .time-box {
+      position: relative;
+      padding: 35px 15px;
+      text-align: center;
+      border: 1px solid var(--border);
+      background: linear-gradient(
+        145deg,
+        rgba(255,255,255,0.07),
+        rgba(255,255,255,0.015)
+      );
+      backdrop-filter: blur(16px);
+      border-radius: 18px;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transition: transform 0.2s ease, border-color 0.3s ease;
+      box-shadow: var(--shadow);
+    }
+
+    .time-box::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        circle at var(--card-x, 50%) var(--card-y, 50%),
+        rgba(212,175,55,0.14),
+        transparent 45%
+      );
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .time-box:hover::before {
+      opacity: 1;
+    }
+
+    .time-number {
+      position: relative;
+      font-family: "Cinzel", serif;
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      line-height: 1;
+      color: var(--gold-light);
+      text-shadow: 0 0 25px rgba(212,175,55,0.18);
+    }
+
+    .time-label {
+      position: relative;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+    }
+
+    .event-note {
+      text-align: center;
+      margin-top: 25px;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .event-note strong {
+      color: var(--gold-light);
+    }
+
+    /* =========================================
+       ABOUT
+    ========================================= */
+
+    .about-grid {
+      max-width: 1100px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .about-visual {
+      min-height: 450px;
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+
+    .orbit {
+      position: absolute;
+      border: 1px solid rgba(212,175,55,0.15);
+      border-radius: 50%;
+    }
+
+    .orbit.one {
+      width: 320px;
+      height: 320px;
+      animation: orbitSpin 14s linear infinite;
+    }
+
+    .orbit.two {
+      width: 420px;
+      height: 420px;
+      border-style: dashed;
+      animation: orbitSpin 22s linear infinite reverse;
+    }
+
+    .orbit-dot {
+      position: absolute;
+      top: -5px;
+      left: 50%;
+      width: 10px;
+      height: 10px;
+      background: var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 0 20px var(--gold);
+    }
+
+    @keyframes orbitSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    .tarang-emblem {
+      position: relative;
+      z-index: 2;
+      width: 230px;
+      height: 230px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, #123e89, #07132e 70%);
+      border: 2px solid rgba(212,175,55,0.65);
+      box-shadow:
+        0 0 60px rgba(20,90,190,0.25),
+        inset 0 0 40px rgba(212,175,55,0.08);
+    }
+
+    .tarang-emblem::before {
+      content: "";
+      position: absolute;
+      inset: 13px;
+      border: 1px solid rgba(212,175,55,0.3);
+      border-radius: 50%;
+    }
+
+    .tarang-emblem span {
+      font-family: "Cinzel", serif;
+      font-size: 2.7rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      color: var(--gold-light);
+    }
+
+    .about-copy h3 {
+      font-family: "Cinzel", serif;
+      color: var(--gold-light);
+      font-size: 1.7rem;
+      margin-bottom: 20px;
+    }
+
+    .about-copy p {
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    .highlight {
+      color: white;
+    }
+
+    /* =========================================
+       EXPERIENCE CARDS
+    ========================================= */
+
+    .experience {
+      background:
+        linear-gradient(
+          180deg,
+          transparent,
+          rgba(8,25,58,0.45),
+          transparent
+        );
+    }
+
+    .card-grid {
+      max-width: 1100px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .glass-card {
+      position: relative;
+      min-height: 250px;
+      padding: 35px;
+      overflow: hidden;
+      border-radius: 22px;
+      border: 1px solid rgba(212,175,55,0.15);
+      background: rgba(255,255,255,0.035);
+      backdrop-filter: blur(15px);
+      transition:
+        transform 0.25s ease,
+        border-color 0.3s ease,
+        background 0.3s ease;
+      transform-style: preserve-3d;
+    }
+
+    .glass-card::before {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      top: var(--card-y, 30%);
+      left: var(--card-x, 30%);
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: rgba(212,175,55,0.1);
+      filter: blur(50px);
+      pointer-events: none;
+    }
+
+    .glass-card:hover {
+      border-color: rgba(212,175,55,0.45);
+      background: rgba(255,255,255,0.06);
+    }
+
+    .card-icon {
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 25px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      color: var(--gold);
+      font-size: 1.4rem;
+      background: rgba(212,175,55,0.06);
+    }
+
+    .glass-card h3 {
+      font-family: "Cinzel", serif;
+      color: #fff6d0;
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+    }
+
+    .glass-card p {
+      color: var(--muted);
+      font-size: 0.85rem;
+      line-height: 1.75;
+    }
+
+    /* =========================================
+       EVENT INFO
+    ========================================= */
+
+    .info-wrap {
+      max-width: 1000px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .info-card {
+      padding: 30px 20px;
+      text-align: center;
+      border-radius: 18px;
+      background: linear-gradient(
+        145deg,
+        rgba(12,45,104,0.42),
+        rgba(255,255,255,0.025)
+      );
+      border: 1px solid rgba(212,175,55,0.15);
+    }
+
+    .info-icon {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+
+    .info-card small {
+      display: block;
+      color: var(--gold);
+      letter-spacing: 0.18em;
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .info-card strong {
+      color: white;
+      font-size: 0.95rem;
+    }
+
+    /* =========================================
+       CTA
+    ========================================= */
+
+    .cta {
+      padding-top: 100px;
+      padding-bottom: 140px;
+    }
+
+    .cta-box {
+      position: relative;
+      max-width: 1050px;
+      margin: auto;
+      padding: 80px 30px;
+      overflow: hidden;
+      text-align: center;
+      border: 1px solid rgba(212,175,55,0.3);
+      border-radius: 30px;
+      background:
+        radial-gradient(circle at center, rgba(20,72,150,0.35), transparent 70%),
+        rgba(255,255,255,0.025);
+      box-shadow: var(--shadow);
+    }
+
+    .cta-box::before,
+    .cta-box::after {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border: 1px solid rgba(212,175,55,0.12);
+      border-radius: 50%;
+    }
+
+    .cta-box::before {
+      left: -110px;
+      top: -110px;
+    }
+
+    .cta-box::after {
+      right: -110px;
+      bottom: -110px;
+    }
+
+    .cta-box h2 {
+      position: relative;
+      font-family: "Cinzel", serif;
+      font-size: clamp(2rem, 5vw, 4rem);
+      color: var(--gold-light);
+    }
+
+    .cta-box p {
+      position: relative;
+      max-width: 650px;
+      margin: 20px auto 30px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    /* =========================================
+       FOOTER
+    ========================================= */
+
+    footer {
+      padding: 35px 6%;
+      border-top: 1px solid rgba(212,175,55,0.1);
+      text-align: center;
+      color: #65738f;
+      font-size: 0.72rem;
+      line-height: 1.8;
+    }
+
+    footer strong {
+      color: var(--gold);
+    }
+
+    /* =========================================
+       REVEAL ANIMATION
+    ========================================= */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(35px);
+      transition:
+        opacity 0.8s ease,
+        transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =========================================
+       MOBILE
+    ========================================= */
+
+    @media (max-width: 800px) {
+      .nav-links {
+        position: fixed;
+        top: 75px;
+        left: 5%;
+        right: 5%;
+        padding: 25px;
+        flex-direction: column;
+        gap: 22px;
+        border-radius: 20px;
+        background: rgba(5,11,28,0.95);
+        border: 1px solid var(--border);
+        backdrop-filter: blur(20px);
+        transform: translateY(-20px);
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.3s ease;
+      }
+
+      .nav-links.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .countdown {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .about-visual {
+        min-height: 380px;
+      }
+
+      .orbit.one {
+        width: 270px;
+        height: 270px;
+      }
+
+      .orbit.two {
+        width: 340px;
+        height: 340px;
+      }
+
+      .tarang-emblem {
+        width: 190px;
+        height: 190px;
+      }
+
+      .tarang-emblem span {
+        font-size: 2.2rem;
+      }
+
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .info-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 90px 5%;
+      }
+    }
+
+    @media (max-width: 450px) {
+      .hero {
+        padding-top: 110px;
+      }
+
+      .hero-title {
+        font-size: clamp(4.2rem, 24vw, 6rem);
+      }
+
+      .eyebrow {
+        font-size: 0.62rem;
+        letter-spacing: 0.17em;
+      }
+
+      .eyebrow::before,
+      .eyebrow::after {
+        width: 20px;
+      }
+
+      .hero-details {
+        gap: 8px;
+      }
+
+      .detail-pill {
+        font-size: 0.7rem;
+        padding: 9px 13px;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0 20px;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .time-box {
+        padding: 25px 10px;
+      }
+
+      .time-number {
+        font-size: 2.5rem;
+      }
+    }
+
+    /* Touch devices don't have a meaningful hover cursor */
+    @media (hover: none) {
+      body::before {
+        display: none;
+      }
+
+      .glass-card:hover {
+        transform: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================================
+       LOADER
+  ========================================== -->
+
+  <div class="loader" id="loader">
+    <div class="loader-content">
+      <div class="loader-logo">TARANG</div>
+      <div class="loader-line"></div>
+    </div>
+  </div>
+
+  <canvas id="particles"></canvas>
+
+  <!-- =========================================
+       NAVIGATION
+  ========================================== -->
+
+  <nav class="nav" id="navbar">
+    <a href="#home" class="brand">
+      <div class="brand-mark">
+        <span>T</span>
+      </div>
+      <span>TARANG</span>
+    </a>
+
+    <div class="nav-links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#countdown">Countdown</a>
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#details">Details</a>
+    </div>
+
+    <button class="menu-btn" id="menuBtn" aria-label="Open navigation">
+      ☰
+    </button>
+  </nav>
+
+  <main>
+
+    <!-- =========================================
+         HERO
+    ========================================== -->
+
+    <section class="hero" id="home">
+
+      <div class="hero-content reveal">
+
+        <div class="eyebrow">
+          Alumni Meet 2026
+        </div>
+
+        <h1 class="hero-title">
+          TARANG
+        </h1>
+
+        <p class="hero-subtitle">
+          Where <strong>memories return</strong>, friendships reconnect,
+          and the journey of our college comes alive once again.
+        </p>
+
+        <div class="hero-details">
+          <div class="detail-pill">
+            <span>19</span> September 2026
+          </div>
+
+          <div class="detail-pill">
+            <span>5:00 PM</span>
+          </div>
+
+          <div class="detail-pill">
+            <span>Open Auditorium</span>
+          </div>
+        </div>
+
+        <div class="hero-buttons">
+
+          <a href="#countdown" class="btn btn-primary magnetic">
+            <span>COUNTDOWN</span>
+            <span class="shine"></span>
+          </a>
+
+          <a href="#details" class="btn btn-secondary magnetic">
+            <span>EVENT DETAILS</span>
+            <span class="shine"></span>
+          </a>
+
+        </div>
+
+      </div>
+
+      <div class="scroll-indicator">
+        Scroll to explore
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         COUNTDOWN
+    ========================================== -->
+
+    <section class="countdown-section" id="countdown">
+
+      <div class="section-heading reveal">
+
+        <div class="section-kicker">
+          The moment awaits
+        </div>
+
+        <h2 class="section-title">
+          Until We Meet Again
+        </h2>
+
+        <p class="section-description">
+          The countdown has begun. Mark your calendar and get ready
+          for an evening filled with memories, laughter and connection.
+        </p>
+
+      </div>
+
+      <div class="countdown reveal">
+
+        <div class="time-box tilt">
+          <div class="time-number" id="days">00</div>
+          <div class="time-label">Days</div>
+        </div>
+
+        <div class="time-box tilt">
+          <div class="time-number" id="hours">00</div>
+          <div class="time-label">Hours</div>
+        </div>
+
+        <div class="time-box tilt">
+          <div class="time-number" id="minutes">00</div>
+          <div class="time-label">Minutes</div>
+        </div>
+
+        <div class="time-box tilt">
+          <div class="time-number" id="seconds">00</div>
+          <div class="time-label">Seconds</div>
+        </div>
+
+      </div>
+
+      <div class="event-note reveal">
+        Countdown to <strong>19 September 2026 · 5:00 PM IST</strong>
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         ABOUT
+    ========================================== -->
+
+    <section id="about">
+
+      <div class="about-grid">
+
+        <div class="about-visual reveal">
+
+          <div class="orbit one">
+            <div class="orbit-dot"></div>
+          </div>
+
+          <div class="orbit two">
+            <div class="orbit-dot"></div>
+          </div>
+
+          <div class="tarang-emblem">
+            <span>TARANG</span>
+          </div>
+
+        </div>
+
+        <div class="about-copy reveal">
+
+          <div class="section-kicker">
+            One campus. Many journeys.
+          </div>
+
+          <h2 class="section-title">
+            The Stories Continue
+          </h2>
+
+          <br>
+
+          <h3>Welcome Back, Alumni.</h3>
+
+          <p>
+            Years may have passed, careers may have taken us across
+            different paths, but the memories created here remain.
+          </p>
+
+          <p>
+            <span class="highlight">TARANG</span> is more than an alumni
+            meet. It is a celebration of the people, friendships,
+            experiences and dreams that began at
+            <span class="highlight">
+              New Prince Shri Bhavani College of Engineering and Technology.
+            </span>
+          </p>
+
+          <p>
+            Come back. Reconnect. Relive the moments.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         EXPERIENCE
+    ========================================== -->
+
+    <section class="experience" id="experience">
+
+      <div class="section-heading reveal">
+
+        <div class="section-kicker">
+          More than an event
+        </div>
+
+        <h2 class="section-title">
+          An Evening To Remember
+        </h2>
+
+        <p class="section-description">
+          TARANG brings the college community together for an evening
+          designed around connection, celebration and nostalgia.
+        </p>
+
+      </div>
+
+      <div class="card-grid">
+
+        <article class="glass-card tilt reveal">
+
+          <div class="card-icon">
+            ✦
+          </div>
+
+          <h3>Reconnect</h3>
+
+          <p>
+            Meet old classmates, reconnect with friends and create
+            new connections across generations of alumni.
+          </p>
+
+        </article>
+
+
+        <article class="glass-card tilt reveal">
+
+          <div class="card-icon">
+            ♫
+          </div>
+
+          <h3>Celebrate</h3>
+
+          <p>
+            Enjoy an unforgettable evening of celebration,
+            entertainment and moments worth remembering.
+          </p>
+
+        </article>
+
+
+        <article class="glass-card tilt reveal">
+
+          <div class="card-icon">
+            ∞
+          </div>
+
+          <h3>Remember</h3>
+
+          <p>
+            Take a journey back through the memories that made
+            your college years special.
+          </p>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         EVENT DETAILS
+    ========================================== -->
+
+    <section id="details">
+
+      <div class="section-heading reveal">
+
+        <div class="section-kicker">
+          Save the date
+        </div>
+
+        <h2 class="section-title">
+          Event Details
+        </h2>
+
+        <p class="section-description">
+          Everything you need to know before joining us.
+        </p>
+
+      </div>
+
+      <div class="info-wrap">
+
+        <div class="info-card tilt reveal">
+          <div class="info-icon">◈</div>
+          <small>Date</small>
+          <strong>19 September 2026</strong>
+        </div>
+
+        <div class="info-card tilt reveal">
+          <div class="info-icon">◷</div>
+          <small>Time</small>
+          <strong>5:00 PM</strong>
+        </div>
+
+        <div class="info-card tilt reveal">
+          <div class="info-icon">⌖</div>
+          <small>Venue</small>
+          <strong>Open Auditorium</strong>
+        </div>
+
+        <div class="info-card tilt reveal">
+          <div class="info-icon">◆</div>
+          <small>Location</small>
+          <strong>Tambaram, Chennai</strong>
+        </div>
+
+        <div class="info-card tilt reveal">
+          <div class="info-icon">✧</div>
+          <small>Institution</small>
+          <strong>New Prince Shri Bhavani College</strong>
+        </div>
+
+        <div class="info-card tilt reveal">
+          <div class="info-icon">T</div>
+          <small>Event</small>
+          <strong>TARANG Alumni Meet 2026</strong>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         CTA
+    ========================================== -->
+
+    <section class="cta">
+
+      <div class="cta-box reveal">
+
+        <div class="section-kicker">
+          The stage is set
+        </div>
+
+        <h2>
+          Come Back To Where It Began.
+        </h2>
+
+        <p>
+          One evening. Countless memories.
+          A whole community coming together again.
+        </p>
+
+        <a href="#home" class="btn btn-primary magnetic">
+          <span>JOIN THE TARANG</span>
+          <span class="shine"></span>
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================================
+       FOOTER
+  ========================================== -->
+
+  <footer>
+    <strong>TARANG 2026</strong>
+    <br>
+    Alumni Meet · New Prince Shri Bhavani College of Engineering and Technology
+    · Tambaram, Chennai
+  </footer>
+
+
+  <script>
+    /* =========================================
+       LOADER
+    ========================================== */
+
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.getElementById("loader").classList.add("hidden");
+      }, 900);
+    });
+
+
+    /* =========================================
+       CURSOR REACTIVE BACKGROUND
+    ========================================== */
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+
+    window.addEventListener("pointermove", (event) => {
+      mouseX = event.clientX;
+      mouseY = event.clientY;
+
+      document.documentElement.style.setProperty(
+        "--mouse-x",
+        `${mouseX}px`
+      );
+
+      document.documentElement.style.setProperty(
+        "--mouse-y",
+        `${mouseY}px`
+      );
+    });
+
+
+    /* =========================================
+       PARTICLES
+    ========================================== */
+
+    const canvas = document.getElementById("particles");
+    const ctx = canvas.getContext("2d");
+
+    let particles = [];
+    let animationFrame;
+
+    function resizeCanvas() {
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+
+      canvas.width = window.innerWidth * ratio;
+      canvas.height = window.innerHeight * ratio;
+
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    }
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+
+      reset() {
+        this.x = Math.random() * window.innerWidth;
+        this.y = Math.random() * window.innerHeight;
+        this.radius = Math.random() * 1.6 + 0.3;
+        this.speed = Math.random() * 0.35 + 0.05;
+        this.alpha = Math.random() * 0.5 + 0.1;
+        this.drift = (Math.random() - 0.5) * 0.25;
+      }
+
+      update() {
+        this.y -= this.speed;
+        this.x += this.drift;
+
+        if (this.y < -10) {
+          this.reset();
+          this.y = window.innerHeight + 10;
+        }
+
+        if (this.x < -10 || this.x > window.innerWidth + 10) {
+          this.x = Math.random() * window.innerWidth;
+        }
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+
+        ctx.fillStyle = `rgba(
+          212,
+          175,
+          55,
+          ${this.alpha}
+        )`;
+
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      const amount = Math.min(
+        Math.floor((window.innerWidth * window.innerHeight) / 14000),
+        100
+      );
+
+      particles = [];
+
+      for (let i = 0; i < amount; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+      particles.forEach((particle) => {
+        particle.update();
+        particle.draw();
+      });
+
+      animationFrame = requestAnimationFrame(animateParticles);
+    }
+
+    resizeCanvas();
+    initParticles();
+    animateParticles();
+
+    window.addEventListener("resize", () => {
+      resizeCanvas();
+      initParticles();
+    });
+
+
+    /* =========================================
+       COUNTDOWN
+       19 SEPTEMBER 2026, 5:00 PM IST
+    ========================================== */
+
+    const targetDate = new Date(
+      "2026-09-19T17:00:00+05:30"
+    ).getTime();
+
+    const daysElement = document.getElementById("days");
+    const hoursElement = document.getElementById("hours");
+    const minutesElement = document.getElementById("minutes");
+    const secondsElement = document.getElementById("seconds");
+
+    function pad(number) {
+      return String(number).padStart(2, "0");
+    }
+
+    function updateCountdown() {
+      const now = Date.now();
+      const difference = targetDate - now;
+
+      if (difference <= 0) {
+        daysElement.textContent = "00";
+        hoursElement.textContent = "00";
+        minutesElement.textContent = "00";
+        secondsElement.textContent = "00";
+
+        document.querySelector(".event-note").innerHTML =
+          "<strong>TARANG IS LIVE ✦ Welcome!</strong>";
+
+        return;
+      }
+
+      const totalSeconds = Math.floor(difference / 1000);
+
+      const days = Math.floor(totalSeconds / 86400);
+      const hours = Math.floor((totalSeconds % 86400) / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+
+      daysElement.textContent = pad(days);
+      hoursElement.textContent = pad(hours);
+      minutesElement.textContent = pad(minutes);
+      secondsElement.textContent = pad(seconds);
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+
+    /* =========================================
+       NAVBAR
+    ========================================== */
+
+    const navbar = document.getElementById("navbar");
+
+    window.addEventListener("scroll", () => {
+      navbar.classList.toggle(
+        "scrolled",
+        window.scrollY > 40
+      );
+    });
+
+
+    /* =========================================
+       MOBILE MENU
+    ========================================== */
+
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
+
+    menuBtn.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+
+      menuBtn.textContent =
+        navLinks.classList.contains("open")
+          ? "×"
+          : "☰";
+    });
+
+    navLinks.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuBtn.textContent = "☰";
+      });
+    });
+
+
+    /* =========================================
+       SCROLL REVEAL
+    ========================================== */
+
+    const revealElements =
+      document.querySelectorAll(".reveal");
+
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.12
+      }
+    );
+
+    revealElements.forEach((element) => {
+      revealObserver.observe(element);
+    });
+
+
+    /* =========================================
+       3D TILT CARDS
+    ========================================== */
+
+    const tiltElements =
+      document.querySelectorAll(".tilt");
+
+    tiltElements.forEach((card) => {
+
+      card.addEventListener("pointermove", (event) => {
+
+        if (event.pointerType === "touch") {
+          return;
+        }
+
+        const rect = card.getBoundingClientRect();
+
+        const x =
+          (event.clientX - rect.left) / rect.width;
+
+        const y =
+          (event.clientY - rect.top) / rect.height;
+
+        const rotateX = (0.5 - y) * 10;
+        const rotateY = (x - 0.5) * 10;
+
+        card.style.transform =
+          `perspective(700px)
+           rotateX(${rotateX}deg)
+           rotateY(${rotateY}deg)
+           translateY(-4px)`;
+
+        card.style.setProperty(
+          "--card-x",
+          `${x * 100}%`
+        );
+
+        card.style.setProperty(
+          "--card-y",
+          `${y * 100}%`
+        );
+      });
+
+      card.addEventListener("pointerleave", () => {
+        card.style.transform =
+          "perspective(700px) rotateX(0deg) rotateY(0deg) translateY(0)";
+      });
+
+    });
+
+
+    /* =========================================
+       MAGNETIC BUTTONS
+    ========================================== */
+
+    const magneticButtons =
+      document.querySelectorAll(".magnetic");
+
+    magneticButtons.forEach((button) => {
+
+      button.addEventListener("pointermove", (event) => {
+
+        if (event.pointerType === "touch") {
+          return;
+        }
+
+        const rect = button.getBoundingClientRect();
+
+        const x =
+          event.clientX - rect.left - rect.width / 2;
+
+        const y =
+          event.clientY - rect.top - rect.height / 2;
+
+        button.style.transform =
+          `translate(${x * 0.12}px, ${y * 0.18}px)`;
+      });
+
+      button.addEventListener("pointerleave", () => {
+        button.style.transform =
+          "translate(0, 0)";
+      });
+
+    });
+
+
+    /* =========================================
+       TOUCH RIPPLE
+    ========================================== */
+
+    document.addEventListener("pointerdown", (event) => {
+
+      if (event.pointerType !== "touch") {
+        return;
+      }
+
+      const ripple = document.createElement("span");
+
+      ripple.style.position = "fixed";
+      ripple.style.left = `${event.clientX}px`;
+      ripple.style.top = `${event.clientY}px`;
+      ripple.style.width = "10px";
+      ripple.style.height = "10px";
+      ripple.style.borderRadius = "50%";
+      ripple.style.pointerEvents = "none";
+      ripple.style.zIndex = "9998";
+      ripple.style.border =
+        "1px solid rgba(255,230,140,0.65)";
+      ripple.style.transform = "translate(-50%, -50%)";
+      ripple.style.animation =
+        "touchRipple 0.7s ease-out forwards";
+
+      document.body.appendChild(ripple);
+
+      setTimeout(() => {
+        ripple.remove();
+      }, 700);
+    });
+
+
+    /* =========================================
+       DYNAMIC TOUCH RIPPLE STYLE
+    ========================================== */
+
+    const rippleStyle =
+      document.createElement("style");
+
+    rippleStyle.textContent = `
+      @keyframes touchRipple {
+        from {
+          width: 10px;
+          height: 10px;
+          opacity: 0.8;
+        }
+
+        to {
+          width: 100px;
+          height: 100px;
+          opacity: 0;
+        }
+      }
+    `;
+
+    document.head.appendChild(rippleStyle);
+
+
+    /* =========================================
+       SMOOTH INTERNAL NAVIGATION
+    ========================================== */
+
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
+
+      link.addEventListener("click", (event) => {
+
+        const targetId =
+          link.getAttribute("href");
+
+        const target =
+          document.querySelector(targetId);
+
+        if (!target) {
+          return;
+        }
+
+        event.preventDefault();
+
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+
+      });
+
+    });
+  </script>
+
+</body>
+</html>
