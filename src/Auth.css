@@ -277,25 +277,37 @@
 
 .auth-input-wrap {
   position: relative;
+  width: 100%;
 }
 
 .auth-input-wrap input {
-  padding-right: 64px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding-right: 100px;
 }
 
-.auth-password-toggle {
-  position: absolute;
-  top: 50%;
-  right: 13px;
-  padding: 5px;
-  border: 0;
-  background: transparent;
+.auth-input-wrap .auth-password-toggle {
+  position: absolute !important;
+  top: 50% !important;
+  right: 14px !important;
+  left: auto !important;
+  bottom: auto !important;
+  transform: translateY(-50%) !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 4px 6px !important;
+  border: 0 !important;
+  background: transparent !important;
   color: var(--auth-green-dark);
   font-size: 12px;
   font-weight: 700;
   font-family: var(--font-display);
   cursor: pointer;
-  transform: translateY(-50%);
+  white-space: nowrap !important;
+  z-index: 10 !important;
 }
 
 .auth-password-toggle:focus-visible,
@@ -432,6 +444,10 @@
 
   .auth-card-inner {
     width: min(100%, 410px);
+  }
+
+  .auth-input-wrap {
+    min-width: 0;
   }
 }
 
